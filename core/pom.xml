@@ -46,6 +46,7 @@
     </dependencies>
 
     <build>
+        <finalName>person-service-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -55,7 +56,7 @@
                     <execution>
                         <id>build-info</id>
                         <goals>
-                            <goal>build-info</goal>
+                            <goal>repackage</goal>
                         </goals>
                     </execution>
                 </executions>
