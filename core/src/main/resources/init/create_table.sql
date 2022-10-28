@@ -10,7 +10,7 @@ create table if not exists medical_card
 create table if not exists illness
 (
     id bigint not null unique primary key,
-    medical_card_id bigint not null references medical_card(id),
+    medical_card_id bigint references medical_card(id) not null,
     type_id bigint,
     heaviness char,
     appearance_dttm timestamp not null ,
@@ -35,12 +35,12 @@ create table if not exists person_data
     sex char not null ,
     contact_id bigint references contact(id) not null ,
     medical_card_id bigint references medical_card(id) not null ,
-    parent_id bigint references person_data(id)
+    parent_id bigint check(parent_id <> id) references person_data(id)
     );
 
 create table if not exists address
 (
-    id bigint not null  unique primary key,
+    id bigint not null unique primary key,
     contact_id bigint not null references contact(id),
     country_id bigint not null,
     city varchar(255) not null,

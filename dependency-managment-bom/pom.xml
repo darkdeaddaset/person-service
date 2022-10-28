@@ -81,9 +81,9 @@
                 <version>${model.mapper.version}</version>
             </dependency>
             <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>${validation-api.version}</version>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>4.10.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,39 +1,32 @@
 package ru.savin.personservice.core.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+
 import javax.validation.constraints.NotNull;
+import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-@Entity
 @Data
-@Table(schema = "public", name = "illness")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Illness {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column(name = "type_id")
-    private long type_id;
-
-    @Column(name = "heaviness")
+    private long typeId;
+    private long medicalCardId;
     private char heaviness;
-
-    @Column(name = "appearance_dttm")
-    @NotNull
-    private Timestamp timestamp;
-
-    @Column(name = "recovery_dt")
-    private Date recovery_dt;
-
-    @NotNull
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "medical_card_id")
-    private MedicalCard medicalCard;
+    private Timestamp appearanceDttm;
+    private Date recoveryDt;
 }
