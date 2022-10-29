@@ -1,89 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                   http://www.liquibase.org/xml/dbchangelog/dbchangelog-4.1.xsd">
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="darkdeaddaset        " id="1">
 
-    <changeSet id="1" author="Dmitry">
-        <comment>Создание изначальной структуры таблиц сущностей</comment>
-        <comment>Создание таблицы medical_card</comment>
         <createTable tableName="medical_card">
             <column name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
             <column name="client_status" type="char"/>
-            <column name="comment" type="varchar(255)"/>
             <column name="med_status" type="char"/>
-            <column name="registry_dt" type="timestamp">
+            <column name="registry_dt" type="date">
                 <constraints nullable="false"/>
             </column>
+            <column name="comment" type="text"/>
         </createTable>
-        <comment>Создание таблицы contact</comment>
+
         <createTable tableName="contact">
             <column name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
-            <column name="email" type="varchar(128)"/>
             <column name="phone_number" type="varchar(32)">
                 <constraints nullable="false"/>
             </column>
-            <column name="profile_link" type="varchar(255)"/>
+            <column name="email" type="varchar(128)"/>
+            <column name="profile_link" type="text"/>
         </createTable>
-        <comment>Создание таблицы address</comment>
-        <createTable tableName="address">
+
+        <createTable tableName="illness">
             <column name="id" type="bigint">
-                <constraints nullable="true" primaryKey="true" unique="true"/>
+                <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
-            <column name="building" type="varchar(32)">
+            <column name="medical_card_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="city" type="varchar(255)">
+            <column name="type_id" type="bigint"/>
+            <column name="heaviness" type="char"/>
+            <column name="appearance_dttm" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recovery_dt" type="date"/>
+        </createTable>
+
+        <createTable tableName="address">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="contact_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="country_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="flat" type="varchar(32)"/>
+            <column name="city" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="index" type="integer"/>
             <column name="street" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="contact_id" type="bigint">
-                <constraints nullable="false" references="contact(id)"/>
-            </column>
-        </createTable>
-        <comment>Создание таблицы illness</comment>
-        <createTable tableName="illness">
-            <column name="id" type="bigint">
-                <constraints nullable="false" unique="true" primaryKey="true"/>
-            </column>
-            <column name="heaviness" type="char"/>
-            <column name="recovery_dt" type="date"/>
-            <column name="appearance_dttm" type="timestamp">
+            <column name="building" type="varchar(32)">
                 <constraints nullable="false"/>
             </column>
-            <column name="type_id" type="bigint"/>
-            <column name="medical_card_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
+            <column name="flat" type="varchar(32)"/>
         </createTable>
-        <comment>Создание таблицы person_data</comment>
+
         <createTable tableName="person_data">
             <column name="id" type="bigint">
-                <constraints nullable="false" unique="true" primaryKey="true"/>
+                <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
-            <column name="age" type="int"/>
-            <column name="birth_dt" type="timestamp">
+            <column name="last_name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="first_name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_name" type="varchar(255)">
+            <column name="birth_dt" type="date">
                 <constraints nullable="false"/>
             </column>
-            <column name="parent_id" type="bigint"> </column>
+            <column name="age" type="smallint"/>
             <column name="sex" type="char">
                 <constraints nullable="false"/>
             </column>
@@ -91,8 +88,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="medical_card_id" type="bigint">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
+            <column name="parent_id" type="bigint"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

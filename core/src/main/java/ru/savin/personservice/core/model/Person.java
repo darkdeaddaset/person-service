@@ -14,12 +14,12 @@ import java.util.Date;
 public class Person {
     @Id
     private long id;
-    private String last_name;
-    private String first_name;
-    private Date birth_dt;
+    private String lastName;
+    private String firstName;
+    private Date birthDt;
     private int age;
     private char sex;
-    private long parent_id;
-    private long medical_card_id;
-    private long contact_id;
+    private long parentId;
+    private long medicalCardId;
+    private long contactId;
 }
