@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/medical")
 public class MedicalCardController {
     private MedicalCardMapper mapper;
 
