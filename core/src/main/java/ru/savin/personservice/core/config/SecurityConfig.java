@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import ru.savin.personservice.core.filter.TokenFilter;
 import ru.savin.personservice.core.service.security.CustomUserDetailsService;
 
 @Configuration
@@ -16,6 +18,7 @@ import ru.savin.personservice.core.service.security.CustomUserDetailsService;
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomUserDetailsService customUserDetailsService;
+    private TokenFilter tokenFilter;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -41,6 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .antMatchers("/illness/**").hasRole("ADMIN")
                         .antMatchers("/medical/**").hasRole("USER")
                         .antMatchers("/person/**").hasRole("ADMIN")
-                        .anyRequest().authenticated());
+                        .anyRequest().authenticated()
+                        .and()
+                        .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class));
     }
 }

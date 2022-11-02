@@ -12,4 +12,10 @@ public interface RolesMapper {
 
     @Insert("insert into role_user(role_id, user_id) values (#{role_id}, #{user_id});")
     void save(@Param("role_id") long role_id, @Param("user_id") long user_id);
+
+    @Select("select role_id from role_user where user_id = #{user_id}")
+    long getByRoleId(@Param("user_id") long user_id);
+
+    @Select("select name_role from role_test where id = #{id}")
+    String getNameRole(@Param("id") long id);
 }
