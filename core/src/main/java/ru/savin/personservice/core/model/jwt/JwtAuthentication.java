@@ -14,8 +14,6 @@ import java.util.Set;
 @Getter
 @Setter
 public class JwtAuthentication implements Authentication {
-    private UserMapper userMapper;
-    private RolesMapper rolesMapper;
     private boolean authenticated;
     private String login;
     private Set<Role> roles;

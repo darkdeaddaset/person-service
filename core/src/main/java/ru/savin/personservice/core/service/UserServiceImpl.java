@@ -13,9 +13,7 @@ import ru.savin.personservice.dto.JwtResponse;
 import ru.savin.personservice.dto.UserDTO;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -48,7 +46,20 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.getUserByLoginAndPassword(userDTO.getLogin(), userDTO.getPassword())
                 .orElseThrow(() -> new EntityNotFoundException("Пользователь не найден"));
 
-        if (user.getPassword().equals(user.getPassword())){
+        if (userDTO.getPassword().equals(user.getPassword())){
+            long user_id = userMapper.getIdOfUser(userDTO.getLogin());
+            long role_id = rolesMapper.getByRoleId(user_id);
+            String role_name = rolesMapper.getNameRole(role_id);
+
+            Set<Role> set = new HashSet<>();
+            if (role_name.equals("ROLE_ADMIN")) {
+                set.add(Role.ADMIN);
+            } else {
+                set.add(Role.USER);
+            }
+
+            user.setRoles(set);
+
             String accessToken = jwtProvider.generateAccessToken(user);
             String refreshToken = jwtProvider.generateRefreshToken(user);
             refreshStorage.put(user.getLogin(), refreshToken);

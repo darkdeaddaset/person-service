@@ -28,8 +28,6 @@ import java.util.Set;
 @Slf4j
 @Component
 public class JwtProvider {
-    private UserMapper userMapper;
-    private RolesMapper rolesMapper;
     private final SecretKey jwtAccessToken;
     private final SecretKey jwtRefreshToken;
 

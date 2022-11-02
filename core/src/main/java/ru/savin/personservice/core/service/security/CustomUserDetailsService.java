@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
     private UserMapper userMapper;
-    private RolesMapper rolesMapper;
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
