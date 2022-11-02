@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
                         throw new RuntimeException("Имя пользователя или пароль не соответствует критериям валидации");
                     }
                     userMapper.save(save);
-                    long role_id = rolesMapper.getRole(Role.USER.toString());
+                    long role_id = rolesMapper.getRole(Role.USER.getAuthority());
                     long user_id = userMapper.getIdOfUser(userDTO.getLogin());
                     rolesMapper.save(role_id, user_id);
                 return ResponseEntity.ok("Пользователь создан");})

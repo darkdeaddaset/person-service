@@ -16,8 +16,8 @@ public interface UserMapper {
     @Select("select login, password from user_test where user_test.login = #{login} and user_test.password = #{password};")
     Optional<User> getUserByLoginAndPassword(@Param("login") String login, @Param("password") String password);
 
-    @Select("select user_test.id from user_test where user_test.login = #{login};")
-    long getIdOfUser(String login);
+    @Select("select id from user_test where login = #{login};")
+    Long getIdOfUser(@Param("login") String login);
     @Insert("insert into user_test(login,password) values (#{login}, #{password})")
     void save(User user);
 }
