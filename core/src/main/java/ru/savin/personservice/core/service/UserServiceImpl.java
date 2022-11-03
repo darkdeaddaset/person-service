@@ -24,6 +24,20 @@ public class UserServiceImpl implements UserService {
     private UserMapstruct userMapstruct;
     private Map<String, String> refreshStorage = new HashMap<>();
 
+    private Set<Role> roleAdmin(){
+        Set<Role> rolesSet = new HashSet<>();
+        rolesSet.add(Role.ADMIN);
+
+        return rolesSet;
+    }
+
+    private Set<Role> roleUser(){
+        Set<Role> rolesSet = new HashSet<>();
+        rolesSet.add(Role.USER);
+
+        return rolesSet;
+    }
+
     @Override
     public ResponseEntity registry(UserDTO userDTO) {
         return Optional.of(userDTO)
@@ -33,32 +47,34 @@ public class UserServiceImpl implements UserService {
                     || userDTO.getPassword() == null || userDTO.getPassword().length() < 8) {
                         throw new RuntimeException("Имя пользователя или пароль не соответствует критериям валидации");
                     }
+                    save.setRole(roleUser());
                     userMapper.save(save);
-                    long role_id = rolesMapper.getRole(Role.USER.getAuthority());
+
                     long user_id = userMapper.getIdOfUser(userDTO.getLogin());
-                    rolesMapper.save(role_id, user_id);
+                    rolesMapper.save(user_id, 1);
                 return ResponseEntity.ok("Пользователь создан");})
                 .orElseThrow(() -> new EntityNotFoundException("Пользователь не может быть создан"));
     }
 
     @Override
     public JwtResponse login(UserDTO userDTO) {
-        User user = userMapper.getUserByLoginAndPassword(userDTO.getLogin(), userDTO.getPassword())
+        User user = userMapper.getUser(userDTO.getLogin())
                 .orElseThrow(() -> new EntityNotFoundException("Пользователь не найден"));
-
-        if (userDTO.getPassword().equals(user.getPassword())){
-            long user_id = userMapper.getIdOfUser(userDTO.getLogin());
-            long role_id = rolesMapper.getByRoleId(user_id);
+        if (userDTO.getPassword().equals(user.getPassword())) {
+            long role_id = rolesMapper.getByRoleId(user.getId());
             String role_name = rolesMapper.getNameRole(role_id);
 
             Set<Role> set = new HashSet<>();
-            if (role_name.equals("ROLE_ADMIN")) {
-                set.add(Role.ADMIN);
-            } else {
+            if (role_name.equals("2")) {
                 set.add(Role.USER);
+                for (Role str : set) {
+                    System.out.println(str.getAuthority());
+                }
+            } else {
+                set.add(Role.ADMIN);
             }
 
-            user.setRoles(set);
+            user.setRole(set);
 
             String accessToken = jwtProvider.generateAccessToken(user);
             String refreshToken = jwtProvider.generateRefreshToken(user);

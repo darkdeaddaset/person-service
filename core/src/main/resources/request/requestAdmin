@@ -1,0 +1,6 @@
+url: localhost:8090/auth/sign-in
+
+body: {
+          "login":"testtesttest1",
+          "password":"testtesttest1"
+      }

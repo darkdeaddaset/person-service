@@ -93,7 +93,7 @@
             <column name="parent_id" type="bigint"/>
         </createTable>
 
-        <createTable tableName="user_test">
+        <!--<createTable tableName="user_test">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" unique="true" />
             </column>
@@ -124,6 +124,6 @@
             <column name="user_id" type="bigint">
                 <constraints nullable="false" unique="true"/>
             </column>
-        </createTable>
+        </createTable>-->
     </changeSet>
 </databaseChangeLog>

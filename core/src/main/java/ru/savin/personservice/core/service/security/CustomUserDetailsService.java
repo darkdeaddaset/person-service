@@ -12,6 +12,7 @@ import ru.savin.personservice.core.model.User;
 import ru.savin.personservice.core.model.enums.Role;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     public static User build(User user) {
-        List<GrantedAuthority> authorities = user.getRoles()
+        List<GrantedAuthority> authorities = user.getRole()
                 .stream()
                 .collect(Collectors.toList());
         return new User(

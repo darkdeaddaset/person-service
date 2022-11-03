@@ -40,7 +40,7 @@ public class JwtAuthentication implements Authentication {
 
     @Override
     public boolean isAuthenticated() {
-        return false;
+        return true;
     }
 
     @Override
@@ -50,6 +50,6 @@ public class JwtAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return null;
+        return getLogin();
     }
 }

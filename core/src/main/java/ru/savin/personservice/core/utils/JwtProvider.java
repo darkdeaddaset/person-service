@@ -11,10 +11,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.savin.personservice.core.mapper.RolesMapper;
-import ru.savin.personservice.core.mapper.UserMapper;
 import ru.savin.personservice.core.model.User;
-import ru.savin.personservice.core.model.enums.Role;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
@@ -22,8 +19,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Slf4j
 @Component
@@ -42,11 +37,13 @@ public class JwtProvider {
         final Instant expiredAccessInstant = now.plusMinutes(12).atZone(ZoneId.systemDefault()).toInstant();
         final Date accessExpired = Date.from(expiredAccessInstant);
 
+        //System.out.println(user.getRole());
+
         return Jwts.builder()
                 .setSubject(user.getLogin())
                 .setExpiration(accessExpired)
                 .signWith(jwtAccessToken)
-                .claim("role", user.getRoles())
+                .claim("role", user.getRole())
                 .compact();
     }
 

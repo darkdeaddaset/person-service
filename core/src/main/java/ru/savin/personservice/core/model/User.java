@@ -7,22 +7,31 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.savin.personservice.core.model.enums.Role;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "users", schema = "medical")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements UserDetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "login")
     private String login;
+    @Column(name = "password")
     private String password;
-    private Set<Role> roles = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<Role> role = new HashSet<>();
+
+    @Transient
     private Collection<? extends GrantedAuthority> authorities;
 
     public User(long id,
@@ -41,26 +50,26 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return getLogin();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
