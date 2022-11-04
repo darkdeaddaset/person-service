@@ -19,15 +19,16 @@ import java.util.Set;
 @AllArgsConstructor
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private long id;
 
     @Column(name = "login")
     private String login;
+
     @Column(name = "password")
     private String password;
 
-    @ElementCollection
+    @ElementCollection(targetClass = Role.class)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Role> role = new HashSet<>();
 

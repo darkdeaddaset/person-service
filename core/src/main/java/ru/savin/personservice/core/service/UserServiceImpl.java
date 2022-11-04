@@ -1,6 +1,8 @@
 package ru.savin.personservice.core.service;
 
+import io.jsonwebtoken.Claims;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.savin.personservice.core.mapper.RolesMapper;
@@ -13,6 +15,7 @@ import ru.savin.personservice.dto.JwtResponse;
 import ru.savin.personservice.dto.UserDTO;
 
 import javax.persistence.EntityNotFoundException;
+import javax.security.auth.message.AuthException;
 import java.util.*;
 
 @Service
@@ -51,25 +54,21 @@ public class UserServiceImpl implements UserService {
                     userMapper.save(save);
 
                     long user_id = userMapper.getIdOfUser(userDTO.getLogin());
-                    rolesMapper.save(user_id, 1);
+                    rolesMapper.save(user_id, 2);
                 return ResponseEntity.ok("Пользователь создан");})
                 .orElseThrow(() -> new EntityNotFoundException("Пользователь не может быть создан"));
     }
 
     @Override
     public JwtResponse login(UserDTO userDTO) {
-        User user = userMapper.getUser(userDTO.getLogin())
+        User user = userMapper.getUserByLoginAndPassword(userDTO.getLogin(), userDTO.getPassword())
                 .orElseThrow(() -> new EntityNotFoundException("Пользователь не найден"));
         if (userDTO.getPassword().equals(user.getPassword())) {
             long role_id = rolesMapper.getByRoleId(user.getId());
-            String role_name = rolesMapper.getNameRole(role_id);
 
             Set<Role> set = new HashSet<>();
-            if (role_name.equals("2")) {
+            if (role_id == 2) {
                 set.add(Role.USER);
-                for (Role str : set) {
-                    System.out.println(str.getAuthority());
-                }
             } else {
                 set.add(Role.ADMIN);
             }
@@ -83,10 +82,23 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new RuntimeException("Пароль неверный");
         }
-        /*return userMapper.getUserByLoginAndPassword(userDTO.getLogin(), userDTO.getPassword())
-                .map(login -> {
-                    UserDTO userDTO1 = userMapstruct.getFromUser(login);
-                    return ResponseEntity.ok(userDTO1);
-                }).orElseThrow(() -> new RuntimeException("Пользователь с такими данными не найден"));*/
+    }
+
+    @Override
+    public JwtResponse refresh(@NonNull String refreshToken) throws AuthException {
+        if (jwtProvider.validateRefresh(refreshToken)){
+            Claims claims = jwtProvider.getRefreshToken(refreshToken);
+            String name = claims.getSubject();
+            String saveRefreshToken = refreshStorage.get(name);
+            if (saveRefreshToken != null && saveRefreshToken.equals(refreshToken)){
+                User user = userMapper.getUser(name)
+                        .orElseThrow(()-> new AuthException("Пользователь не найден"));
+                String accessToken = jwtProvider.generateAccessToken(user);
+                String refreshNewToken = jwtProvider.generateRefreshToken(user);
+                refreshStorage.put(user.getLogin(), refreshNewToken);
+                return new JwtResponse(accessToken, refreshToken);
+            }
+        }
+        throw new AuthException("Невалидный токен");
     }
 }

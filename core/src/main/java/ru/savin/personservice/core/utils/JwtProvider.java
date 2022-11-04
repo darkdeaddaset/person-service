@@ -37,8 +37,6 @@ public class JwtProvider {
         final Instant expiredAccessInstant = now.plusMinutes(12).atZone(ZoneId.systemDefault()).toInstant();
         final Date accessExpired = Date.from(expiredAccessInstant);
 
-        //System.out.println(user.getRole());
-
         return Jwts.builder()
                 .setSubject(user.getLogin())
                 .setExpiration(accessExpired)
