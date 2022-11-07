@@ -61,15 +61,6 @@
             values ('5', 'Grishin', 'Ghisha', '2002-01-01', '18', 'M', 6, 6, null);
             insert into person_data(id, last_name, first_name, birth_dt, age, sex, contact_id, medical_card_id, parent_id)
             values ('6', 'Grishina', 'Tatyana', '2002-01-01', '18', 'M', 7, 7, null);
-
-            /*insert into user_test(id, login, password) values (1, 'user1', 'test1');
-            insert into user_test(id, login, password) values (2, 'user2', 'test2');*/
-
-            /*insert into role_test(id, name_role) values (1, 'ROLE_ADMIN');
-            insert into role_test(id, name_role) values (2, 'ROLE_USER');
-
-            insert into role_user(id, role_id, user_id) values ('1', '1', '1');
-            insert into role_user(id, role_id, user_id) values ('2', '2', '2');*/
         </sql>
     </changeSet>
 </databaseChangeLog>

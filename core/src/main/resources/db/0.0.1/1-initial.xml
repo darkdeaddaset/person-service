@@ -92,38 +92,5 @@
             </column>
             <column name="parent_id" type="bigint"/>
         </createTable>
-
-        <!--<createTable tableName="user_test">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true" unique="true" />
-            </column>
-            <column name="login" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="password" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="role_test">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true" unique="true"/>
-            </column>
-            <column name="name_role" type="varchar(255)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-        </createTable>
-
-        <createTable tableName="role_user">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints nullable="false" unique="true" primaryKey="true"/>
-            </column>
-            <column name="role_id" type="bigint">
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column name="user_id" type="bigint">
-                <constraints nullable="false" unique="true"/>
-            </column>
-        </createTable>-->
     </changeSet>
 </databaseChangeLog>

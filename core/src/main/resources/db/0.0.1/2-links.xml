@@ -29,17 +29,5 @@
                                  constraintName="fk_person_data_medical_card"
                                  referencedTableName="medical_card"
                                  referencedColumnNames="id"/>
-
-        <!--<addForeignKeyConstraint baseTableName="role_user"
-                                 baseColumnNames="role_id"
-                                 constraintName="fk_roles_role_id"
-                                 referencedTableName="role_test"
-                                 referencedColumnNames="id"/>
-
-        <addForeignKeyConstraint baseTableName="role_user"
-                                 baseColumnNames="user_id"
-                                 constraintName="fk_role_user_id"
-                                 referencedTableName="user_test"
-                                 referencedColumnNames="id"/>-->
     </changeSet>
 </databaseChangeLog>

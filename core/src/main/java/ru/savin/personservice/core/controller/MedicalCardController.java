@@ -1,5 +1,7 @@
 package ru.savin.personservice.core.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.savin.personservice.core.mapper.MedicalCardMapper;
@@ -10,10 +12,12 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/medical")
+@Api(value = "Контроллер для работы с медицискими картами")
 public class MedicalCardController {
     private MedicalCardMapper mapper;
 
     @GetMapping("/all")
+    @ApiOperation(value = "Получение всех медицинских карт")
     public List<MedicalCard> getAllMedicalCard() {
         return mapper.getAllMedicalCard();
     }

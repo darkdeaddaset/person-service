@@ -1,4 +1,4 @@
-create view clients as
+create or replace view clients as
     select t1.id,
            t3.last_name,
            t3.first_name,
