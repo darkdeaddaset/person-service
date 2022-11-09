@@ -1,23 +1,11 @@
 package ru.savin.personservice.core.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.mapstruct.Mapper;
 import ru.savin.personservice.core.model.Illness;
+import ru.savin.personservice.dto.IllnessDTO;
 
-import java.util.List;
-
-@Mapper
+@Mapper(componentModel = "spring")
 public interface IllnessMapper {
-    @Results(id = "illness", value = {
-            @Result(property = "typeId", column = "type_id"),
-            @Result(property = "medicalCardId", column = "medical_card_id"),
-            @Result(property = "appearanceDttm", column = "apprearance_dttm"),
-            @Result(property = "recoveryDt", column = "recovery_dy")
-    })
-
-    @Select("select id, medical_card_id as medicalCardId, type_id as typeId, heaviness, appearance_dttm as appearanceDttm, recovery_dt as recoveryDt " +
-            "from illness;")
-    List<Illness> getAll();
+    Illness getFromDTO(IllnessDTO illnessDTO);
+    IllnessDTO getFromModel(Illness illness);
 }

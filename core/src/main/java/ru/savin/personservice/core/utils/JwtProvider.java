@@ -77,7 +77,7 @@ public class JwtProvider {
         } catch (UnsupportedJwtException ex) {
             log.error("Неподдерживаемый токен");
         } catch (SignatureException ex) {
-            log.error("Неподдерживаемая сигнатура");
+            log.warn("Неподдерживаемая сигнатура");
         } catch (Exception ex) {
             log.error("Неподдерживаемый токен", ex);
         }

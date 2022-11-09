@@ -1,18 +1,11 @@
 package ru.savin.personservice.core.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.savin.personservice.core.mapper.IllnessMapper;
+import org.springframework.http.ResponseEntity;
 import ru.savin.personservice.core.model.Illness;
+import ru.savin.personservice.dto.IllnessDTO;
 
-import java.util.List;
-
-@Service
-@AllArgsConstructor
-public class IllnessService {
-    private IllnessMapper illnessMapper;
-
-    public List<Illness> getAll() {
-        return illnessMapper.getAll();
-    }
+public interface IllnessService {
+    ResponseEntity<String> save(IllnessDTO illnessDTO);
+    ResponseEntity update(IllnessDTO illnessDTO);
+    Illness getAll(String heaviness, long typeId);
 }

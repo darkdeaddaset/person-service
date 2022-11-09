@@ -10,5 +10,5 @@ import javax.security.auth.message.AuthException;
 public interface UserService {
     ResponseEntity registry(UserDTO userDTO);
     JwtResponse login(UserDTO userDTO);
-    JwtResponse refresh(@NonNull String refreshToken) throws AuthException;
+    //JwtResponse refresh(@NonNull String refreshToken) throws AuthException;
 }

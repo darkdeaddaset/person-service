@@ -30,16 +30,16 @@
                                  referencedTableName="medical_card"
                                  referencedColumnNames="id"/>
 
-        <!--<addForeignKeyConstraint baseTableName="role_user"
-                                 baseColumnNames="role_id"
-                                 constraintName="fk_roles_role_id"
-                                 referencedTableName="role_test"
+        <addForeignKeyConstraint baseTableName="user_role"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_user_role"
+                                 referencedTableName="users"
                                  referencedColumnNames="id"/>
 
-        <addForeignKeyConstraint baseTableName="role_user"
-                                 baseColumnNames="user_id"
-                                 constraintName="fk_role_user_id"
-                                 referencedTableName="user_test"
-                                 referencedColumnNames="id"/>-->
+        <addForeignKeyConstraint baseTableName="signals"
+                                 baseColumnNames="person_data_id"
+                                 constraintName="fk_signal_person"
+                                 referencedTableName="person_data"
+                                 referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>

@@ -1,11 +1,11 @@
 package ru.savin.personservice.core.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.savin.personservice.core.model.Person;
 import ru.savin.personservice.core.service.PersonService;
-
-import java.util.List;
+import ru.savin.personservice.dto.PersonDTO;
 
 @RestController
 @RequestMapping("/person")
@@ -13,13 +13,23 @@ import java.util.List;
 public class PersonController {
     private PersonService personService;
 
-    @GetMapping(value = "/all")
-    public List<Person> getAll() {
-        return personService.getAll();
+    @GetMapping("/{id}")
+    public PersonDTO getById(@PathVariable("id") long id) {
+        return personService.getId(id);
     }
 
-    @PostMapping(value = "/add")
-    public Person add(@RequestBody Person person) {
-        return personService.add(person);
+   /* @GetMapping("/{lastName}")
+    public Person get(@PathVariable("lastName") String lastname) {
+        return personService.getAll(lastname);
+    }*/
+
+    @PostMapping("/save")
+    public ResponseEntity save(@RequestBody PersonDTO personDTO) {
+        return personService.save(personDTO);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity update(@RequestBody PersonDTO personDTO) {
+        return personService.update(personDTO);
     }
 }

@@ -1,1 +1,0 @@
-select last_name, first_name from person_data join contact c on c.id = person_data.contact_id;

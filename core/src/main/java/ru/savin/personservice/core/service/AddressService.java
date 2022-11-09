@@ -1,18 +1,14 @@
 package ru.savin.personservice.core.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.savin.personservice.core.mapper.AddressMapper;
+import org.apache.coyote.Response;
+import org.springframework.http.ResponseEntity;
 import ru.savin.personservice.core.model.Address;
+import ru.savin.personservice.dto.AddressDTO;
 
 import java.util.List;
 
-@Service
-@AllArgsConstructor
-public class AddressService {
-    private AddressMapper addressMapper;
-
-    public List<Address> getAll() {
-        return addressMapper.getAllAddress();
-    }
+public interface AddressService {
+    ResponseEntity<String> saveNewAddress(AddressDTO addressDTO);
+    ResponseEntity<AddressDTO> updateAddress(AddressDTO addressDTO);
+    ResponseEntity<List<Address>> getAddress(String city);
 }

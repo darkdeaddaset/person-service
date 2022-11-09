@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import ru.savin.personservice.core.mapper.RolesMapper;
-import ru.savin.personservice.core.mapper.UserMapper;
 import ru.savin.personservice.core.model.enums.Role;
 
 import java.util.Collection;

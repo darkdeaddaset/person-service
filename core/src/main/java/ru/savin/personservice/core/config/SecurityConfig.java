@@ -38,11 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests(auth -> auth
                         .antMatchers("/auth/**").permitAll()
+                        .antMatchers("/person/**").permitAll()
                         .antMatchers("/address/**").hasRole("ADMIN")
                         .antMatchers("/contact/**").hasRole("ADMIN")
                         .antMatchers("/illness/**").hasRole("ADMIN")
                         .antMatchers("/medical/**").hasRole("USER")
-                        .antMatchers("/person/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                         .and()
                         .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class));

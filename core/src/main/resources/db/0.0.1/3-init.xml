@@ -50,26 +50,23 @@
             insert into address (id, contact_id, country_id, city, index, street, building, flat) values (8, 8, 2, 'Alma-Ata', 2000, 'Lenina', '1', '8');
 
             insert into person_data(id, last_name, first_name, birth_dt, age, sex, contact_id, medical_card_id, parent_id)
-            values ('1', 'Ivanov', 'Ivan', '2002-01-01', '18', 'M', 1, 1, null);
+            values ('1', 'Ivanov', 'Ivan', '2002-01-01', '18', 'M', 1, 1, 0);
             insert into person_data(id, last_name, first_name, birth_dt, age, sex, contact_id, medical_card_id, parent_id)
-            values ('2', 'Ivanova', 'Masha', '2002-02-02', '18', 'F', 2, 2, null);
+            values ('2', 'Ivanova', 'Masha', '2002-02-02', '18', 'F', 2, 2, 0);
             insert into person_data(id, last_name, first_name, birth_dt, age, sex, contact_id, medical_card_id, parent_id)
-            values ('3', 'Fedorov', 'Fedor', '2002-03-03', '18', 'M', 3, 3, null);
+            values ('3', 'Fedorov', 'Fedor', '2002-03-03', '18', 'M', 3, 3, 0);
             insert into person_data(id, last_name, first_name, birth_dt, age, sex, contact_id, medical_card_id, parent_id)
-            values ('4', 'Fedorova', 'Darya', '2002-04-04', '18', 'F', 4, 4, null);
+            values ('4', 'Fedorova', 'Darya', '2002-04-04', '18', 'F', 4, 4, 0);
             insert into person_data(id, last_name, first_name, birth_dt, age, sex, contact_id, medical_card_id, parent_id)
-            values ('5', 'Grishin', 'Ghisha', '2002-01-01', '18', 'M', 6, 6, null);
+            values ('5', 'Grishin', 'Ghisha', '2002-01-01', '18', 'M', 6, 6, 0);
             insert into person_data(id, last_name, first_name, birth_dt, age, sex, contact_id, medical_card_id, parent_id)
-            values ('6', 'Grishina', 'Tatyana', '2002-01-01', '18', 'M', 7, 7, null);
+            values ('6', 'Grishina', 'Tatyana', '2002-01-01', '18', 'M', 7, 7, 0);
 
-            /*insert into user_test(id, login, password) values (1, 'user1', 'test1');
-            insert into user_test(id, login, password) values (2, 'user2', 'test2');*/
+            insert into users(id, login, password) values (100, 'testtesttest1', 'testtesttest1');
+            insert into users(id, login, password) values (101, 'testtesttest2', 'testtesttest2');
 
-            /*insert into role_test(id, name_role) values (1, 'ROLE_ADMIN');
-            insert into role_test(id, name_role) values (2, 'ROLE_USER');
-
-            insert into role_user(id, role_id, user_id) values ('1', '1', '1');
-            insert into role_user(id, role_id, user_id) values ('2', '2', '2');*/
+            insert into user_role(user_id, role) values (100, 1);
+            insert into user_role(user_id, role) values (101, 2);
         </sql>
     </changeSet>
 </databaseChangeLog>

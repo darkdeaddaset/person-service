@@ -1,16 +1,15 @@
 package ru.savin.personservice.core.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ru.savin.personservice.core.model.Address;
+import ru.savin.personservice.dto.AddressDTO;
 
-import java.util.List;
-
-@Mapper
+@Mapper(componentModel = "spring")
 public interface AddressMapper {
+    @Mapping(target = "contactId.id", source = "contactId")
+    Address getFromDTO(AddressDTO addressDTO);
 
-
-    @Select ("select id, contact_id as contactId, country_id as countryId, city, index, street, building, flat " +
-            "from address;")
-    List<Address> getAllAddress();
+    @Mapping(target = "contactId", source = "contactId.id")
+    AddressDTO getFromModel(Address address);
 }
